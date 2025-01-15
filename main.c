@@ -61,7 +61,7 @@ void imprime(node* head) {
 
 node* monta_lista(char* input, int* freq, int n) {
 
-    //Ordenando os vetores para a criação da lista:
+    //Ordenando os vetores para a criaÃ§Ã£o da lista:
 
     for(int i = 0; i < n; i++){
         int im = i;
@@ -79,7 +79,7 @@ node* monta_lista(char* input, int* freq, int n) {
         input[im] = tmpc;
     }
 
-    //Criação da lista ordenada:
+    //CriaÃ§Ã£o da lista ordenada:
     node* head = NULL;
     for (int i=n-1; i>=0; i--) {
         if (freq[i]!=0)
@@ -92,13 +92,13 @@ node* monta_lista(char* input, int* freq, int n) {
 
 node* gera_arvore(node* head) {
 
-    //Criando o nó auxiliar que recebe os dois nós com as menores frequencias:
+    //Criando o nÃ³ auxiliar que recebe os dois nÃ³s com as menores frequencias:
     node* aux = malloc(sizeof(node));
     aux->letra = '+';
     aux->dir = head->prox;
     aux->esq = head;
     aux->frequencia = aux->dir->frequencia + aux->esq->frequencia;
-    //Movendo o head caso existam mais de dois nós:
+    //Movendo o head caso existam mais de dois nÃ³s:
     if (head->prox->prox != NULL) {
         head = head->prox->prox;
 
@@ -155,7 +155,7 @@ int altura(node* head) {
     }
 }
 
-//==============Aloca a Tabela de Codificação==================//
+//==============Aloca a Tabela de CodificaÃ§Ã£o==================//
 
 char** aloca_tabela(int colunas, int n) {
     char** tabela = malloc(n*sizeof(char*));
@@ -166,7 +166,7 @@ char** aloca_tabela(int colunas, int n) {
     return tabela;
 }
 
-//==============Gera a Tabela de Codificação==================//
+//==============Gera a Tabela de CodificaÃ§Ã£o==================//
 
 void gera_tabela(node* head, char* input, char** tabela, int n, char* caminho, int colunas) {
     char esquerda[colunas], direita[colunas];
@@ -189,14 +189,14 @@ void gera_tabela(node* head, char* input, char** tabela, int n, char* caminho, i
     }
 }
 
-//==============Gera a Árvore de Huffman==================//
+//==============Gera a Ãrvore de Huffman==================//
 
 node* arvore_huffman(char* input, int* freq, int n) {
 
-    //Primeiramente é necessária uma lista encadeada ordenada em relação as frequencias:
+    //Primeiramente Ã© necessÃ¡ria uma lista encadeada ordenada em relaÃ§Ã£o as frequencias:
     node* head = monta_lista(input, freq, n);
 
-    //Geração da arvore:
+    //GeraÃ§Ã£o da arvore:
     while (head->prox != NULL) {
         head = gera_arvore(head);
     }
@@ -217,7 +217,7 @@ void codifica(char** tabela, char* input, int n) {
     FILE* s = fopen("codificado.txt", "w");
 
     //Passamos pelo arquivo codificamos os caracteres de acordo com a tabela,
-    //escrevendo-os no arquivo de saida já codificados
+    //escrevendo-os no arquivo de saida jÃ¡ codificados
 
     char c;
 
@@ -257,27 +257,16 @@ void decodifica(node* head) {
 
 int main(void) {
     int x=0;
-    int n=62;           //n é o número de caracteres únicos que teremos no arquivo
+    int n=127;           //n Ã© o nÃºmero de caracteres Ãºnicos que teremos no arquivo
     char input[n];
 
-    //Incluindo os caracteres que serão comprimidos:
+    //Incluindo os caracteres que serÃ£o comprimidos:
 
-    for (int i=48; i<58; i++) {
+    for (int i=0; i<127; i++) {
         input[x] = i;
         x++;
     }
 
-    for (int i=65; i<91; i++) {
-        input[x] = i;
-        x++;
-    }
-
-    for (int i=97; i<123; i++) {
-        input[x] = i;
-        x++;
-    }
-
-    //Ao todo temos os numeros de 0 a 9 e o alfabeto tanto maiúsculo quanto minúsculo
 
     //Obtemos a frequencia de cada caracter no arquivo:
 
